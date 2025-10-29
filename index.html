@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Interestify — Make Studying Fun</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
@@ -44,7 +44,7 @@ footer { background:#111; color:white; padding:20px; text-align:center; font-siz
 
 <section id="home" class="hero">
   <h1>Make Studying Fun!</h1>
-  <p>Paste your study material from ANY subject and see it transformed with your favorite interests — Marvel, Disney, anime, Roblox, and more!</p>
+  <p>Paste your study guide from ANY subject and see it rewritten in your favorite interests — Roblox, Marvel, Disney, Anime, and more!</p>
   <button onclick="document.getElementById('try').scrollIntoView({behavior:'smooth'})">Try It Now</button>
 </section>
 
@@ -53,15 +53,15 @@ footer { background:#111; color:white; padding:20px; text-align:center; font-siz
   <div class="steps">
     <div class="step">
       <h3>1️⃣ Paste</h3>
-      <p>Paste your study guide, no matter the subject — math, history, science, language, etc.</p>
+      <p>Paste your study guide — math, science, history, English, whatever!</p>
     </div>
     <div class="step">
       <h3>2️⃣ Select Interest</h3>
-      <p>Choose what you like — Marvel, Disney, anime, Roblox, K-pop, and more.</p>
+      <p>Choose what you like — Roblox, Marvel, Disney, Anime, and more.</p>
     </div>
     <div class="step">
       <h3>3️⃣ Generate</h3>
-      <p>See your material transformed with interest-themed examples while keeping all key facts correct.</p>
+      <p>Watch your material rewritten in the style of your interest while keeping the facts and numbers correct.</p>
     </div>
   </div>
 </section>
@@ -71,15 +71,10 @@ footer { background:#111; color:white; padding:20px; text-align:center; font-siz
   <textarea id="studyInput" placeholder="Paste your study guide here..."></textarea>
   <select id="interestSelect">
     <option value="">Select Your Interest</option>
+    <option value="Roblox">Roblox</option>
     <option value="Marvel">Marvel</option>
     <option value="Disney">Disney</option>
     <option value="Anime">Anime</option>
-    <option value="Roblox">Roblox</option>
-    <option value="DC">DC</option>
-    <option value="Star Wars">Star Wars</option>
-    <option value="Harry Potter">Harry Potter</option>
-    <option value="Minecraft">Minecraft</option>
-    <option value="K-pop">K-pop</option>
   </select>
   <button class="generate" onclick="generate()">Generate ✨</button>
   <div id="outputBox"></div>
@@ -87,32 +82,69 @@ footer { background:#111; color:white; padding:20px; text-align:center; font-siz
 
 <section id="about">
   <h2>About Interestify</h2>
-  <p>Interestify works for ALL subjects! It keeps your material accurate but adds fun, relatable examples to make any subject exciting — math, science, history, English, and more!</p>
+  <p>Interestify works for ALL subjects! It rewrites your study guides in a fun, interest-themed style while keeping numbers and facts correct — math, science, history, English, and more!</p>
 </section>
 
 <footer>© 2025 Interestify • Study Smarter, Funner!</footer>
 
 <script>
+// Map interest keywords to replacements
+const interestMap = {
+  Roblox: {
+    "factory": "Brainwrap factory",
+    "item": "coin",
+    "items": "coins",
+    "day": "in-game day",
+    "days": "in-game days",
+    "dollar": "Robux",
+    "dollars": "Robux"
+  },
+  Marvel: {
+    "factory": "Stark Industries lab",
+    "item": "gadget",
+    "items": "gadgets",
+    "day": "mission day",
+    "days": "mission days",
+    "dollar": "stark bucks",
+    "dollars": "stark bucks"
+  },
+  Disney: {
+    "factory": "Magic Kingdom workshop",
+    "item": "toy",
+    "items": "toys",
+    "day": "magic day",
+    "days": "magic days",
+    "dollar": "pixie coins",
+    "dollars": "pixie coins"
+  },
+  Anime: {
+    "factory": "anime studio",
+    "item": "scroll",
+    "items": "scrolls",
+    "day": "episode",
+    "days": "episodes",
+    "dollar": "yen",
+    "dollars": "yen"
+  }
+};
+
 function generate() {
   const text = document.getElementById("studyInput").value.trim();
   const interest = document.getElementById("interestSelect").value;
   const output = document.getElementById("outputBox");
-  if (!text) { output.innerText = "⚠️ Paste your study guide first."; return; }
-  if (!interest) { output.innerText = "⚠️ Select your interest."; return; }
+  if(!text){ output.innerText = "⚠️ Paste your study guide first."; return;}
+  if(!interest){ output.innerText = "⚠️ Select your interest."; return;}
 
+  const map = interestMap[interest];
   const sentences = text.split(/(?<=[.?!])\s+/);
-  const templates = [
-    `Imagine ${interest} exploring this: {sentence}`,
-    `Even ${interest} fans would find this interesting: {sentence}`,
-    `Think of ${interest} while studying: {sentence}`,
-    `In a ${interest}-themed world: {sentence}`,
-    `If ${interest} were teaching, they'd say: {sentence}`
-  ];
 
-  const transformed = sentences.map(sentence => {
-    if (!sentence) return "";
-    const chosen = templates[Math.floor(Math.random() * templates.length)];
-    return chosen.replace("{sentence}", sentence);
+  const transformed = sentences.map(sentence=>{
+    let s = sentence;
+    for(const key in map){
+      const re = new RegExp(`\\b${key}\\b`, "gi");
+      s = s.replace(re, map[key]);
+    }
+    return s;
   }).join("\n\n");
 
   output.innerText = transformed + "\n\n🎉 Studying just got fun!";
