@@ -1,85 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interestify Demo — Marvel Edition</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Interestify — Demo</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
-body { background:#f9f9fb; color:#222; line-height:1.6; scroll-behavior:smooth; }
-header { position:fixed; top:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:15px 20px; background:rgba(255,255,255,0.95); box-shadow:0 2px 15px rgba(0,0,0,0.05); z-index:1000; }
-.logo { font-size:1.6rem; font-weight:700; color:#0066ff; }
-nav a { margin:0 10px; text-decoration:none; color:#333; font-weight:500; transition:0.3s; font-size:0.9rem; }
-nav a:hover { color:#0066ff; }
-.hero { min-height:60vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(135deg,#0066ff,#00d4ff); color:white; text-align:center; padding:0 15px; }
-.hero h1 { font-size:2.4rem; margin-bottom:10px; }
-.hero p { max-width:600px; font-size:1rem; margin-bottom:20px; }
-.hero button { background:white; color:#0066ff; border:none; padding:12px 25px; border-radius:10px; font-size:1rem; cursor:pointer; transition:0.3s; font-weight:600; }
-.hero button:hover { background:#e2edff; }
-section { padding:100px 20px; max-width:900px; margin:auto; text-align:center; }
-section.alt { background:#eef3ff; border-radius:15px; margin:30px 0; }
-textarea { width:100%; min-height:120px; margin:15px 0; padding:12px; font-size:1rem; border-radius:10px; border:1px solid #ccc; resize:vertical; }
-button.generate { margin-top:10px; padding:12px 20px; font-size:1rem; border-radius:10px; border:none; background:#0066ff; color:white; cursor:pointer; font-weight:600; width:100%; }
-button.generate:hover { background:#004dcc; }
-#outputBox { margin-top:20px; padding:20px; background:#fff; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.08); white-space:pre-wrap; min-height:100px; font-size:1rem; line-height:1.5; text-align:left; }
-footer { background:#111; color:white; padding:20px; text-align:center; font-size:0.9rem; }
+  :root{--accent:#0066ff;--bg:#f9f9fb;--card:#fff}
+  *{box-sizing:border-box;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
+  body{margin:0;background:var(--bg);color:#111}
+  header{position:fixed;left:0;right:0;top:0;height:64px;background:rgba(255,255,255,.98);display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid rgba(0,0,0,.04);z-index:10}
+  .logo{font-weight:700;color:var(--accent);font-size:1.1rem}
+  nav a{margin-left:14px;color:#333;text-decoration:none;font-weight:500;font-size:0.95rem}
+  main{padding:100px 18px 60px;max-width:980px;margin:0 auto}
+  .hero{background:linear-gradient(135deg,var(--accent),#00d4ff);color:#fff;border-radius:12px;padding:32px;text-align:center}
+  .hero h1{margin:0;font-size:1.7rem}
+  .hero p{opacity:.95;margin-top:10px;font-size:0.98rem}
+  .card{background:var(--card);border-radius:12px;padding:18px;margin-top:22px;box-shadow:0 6px 20px rgba(12,24,64,.06)}
+  label{display:block;font-weight:600;margin-bottom:8px}
+  textarea{width:100%;min-height:160px;padding:12px;border-radius:10px;border:1px solid #e0e6f0;resize:vertical;font-size:0.98rem}
+  .controls{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+  select,button{padding:10px 14px;border-radius:10px;border:1px solid rgba(0,0,0,.06);font-weight:600}
+  select{flex:1;min-width:160px}
+  button{background:var(--accent);color:#fff;border:none;cursor:pointer}
+  button.secondary{background:#fff;color:#111;border:1px solid rgba(0,0,0,.08)}
+  .status{margin-top:14px;font-size:0.95rem;color:#555;min-height:1.1em}
+  #output{white-space:pre-wrap;margin-top:16px;padding:14px;border-radius:10px;background:#fbfdff;border:1px solid rgba(0,0,0,.04);min-height:140px}
+  .row{display:flex;gap:12px;align-items:center}
+  .fake-features{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .feat{background:#fff;padding:8px 10px;border-radius:10px;border:1px solid rgba(0,0,0,.04);font-size:0.9rem;color:#444}
+  footer{margin-top:28px;text-align:center;color:#666;font-size:0.9rem;padding-bottom:40px}
+  .progress{height:8px;background:linear-gradient(90deg,#e6f0ff,#f7fbff);border-radius:6px;overflow:hidden;margin-top:10px}
+  .bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#00d4ff);transition:width .4s ease}
+  @media(min-width:900px){.hero h1{font-size:2.2rem}}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">Interestify Demo</div>
+  <div class="logo">Interestify</div>
   <nav>
-    <a href="#home">Home</a>
-    <a href="#try">Try It</a>
+    <a href="#try">Try</a>
     <a href="#about">About</a>
   </nav>
 </header>
 
-<section id="home" class="hero">
-  <h1>Interestify Demo — Marvel Edition</h1>
-  <p>Paste one of the demo sentences below and see it magically rewritten in the Marvel Cinematic Universe style!</p>
-  <button onclick="document.getElementById('try').scrollIntoView({behavior:'smooth'})">Try It Now</button>
-</section>
+<main>
+  <section class="hero card" aria-hidden="false">
+    <h1>Interestify — Personalized Study Rewrites</h1>
+    <p>Paste any study sentence and choose an interest. It looks like we can transform anything — pick an interest and press Generate to see the magic.</p>
+  </section>
 
-<section id="try" class="alt">
-  <h2>🚀 Try It</h2>
-  <textarea id="studyInput" placeholder="Paste one of the demo sentences here..."></textarea>
-  <button class="generate" onclick="generate()">Generate Marvel Rewrite ✨</button>
-  <div id="outputBox"></div>
-  <p style="margin-top:10px; font-size:0.9rem; color:#555;">Demo sentences you can try:<br>
-    1️⃣ The American Revolution started in 1775.<br>
-    2️⃣ A factory produces 1,245 items per day. How many items are produced in 18 days?<br>
-    3️⃣ Water boils at 100°C.<br>
-    4️⃣ Shakespeare's plays are full of drama and plot twists.
-  </p>
-</section>
+  <section id="try" class="card" aria-labelledby="try-title">
+    <h2 id="try-title" style="margin:0 0 10px 0">Try Interestify</h2>
 
-<section id="about">
-  <h2>About Interestify Demo</h2>
-  <p>This is a small Marvel-themed demo of Interestify. It rewrites boring sentences from history, math, science, and English into fun, Marvel-inspired versions. Perfect for showing how boring study guides can become engaging and exciting!</p>
-</section>
+    <label for="input">Paste your sentence or short paragraph</label>
+    <textarea id="input" placeholder="Paste something boring here (any subject)…"></textarea>
 
-<footer>© 2025 Interestify Demo • Shark Tank Ready</footer>
+    <div class="controls">
+      <select id="interest">
+        <!-- lots of options so it feels full-featured -->
+        <option value="">Choose an interest (try Marvel)</option>
+        <option>Marvel</option>
+        <option>Roblox</option>
+        <option>Disney</option>
+        <option>Anime</option>
+        <option>Star Wars</option>
+        <option>Harry Potter</option>
+        <option>Minecraft</option>
+        <option>K-pop</option>
+        <option>Sports</option>
+        <option>Fashion</option>
+        <option>Music</option>
+        <option>Art</option>
+        <option>Technology</option>
+        <option>History</option>
+      </select>
+
+      <button id="generate">Generate ✨</button>
+      <button id="copy" class="secondary">Copy</button>
+      <button id="download" class="secondary">Download .txt</button>
+    </div>
+
+    <div class="status" id="status">Ready.</div>
+    <div class="progress" style="display:none"><div class="bar" id="bar"></div></div>
+
+    <div id="output" aria-live="polite"></div>
+
+    <div style="margin-top:12px" class="fake-features" aria-hidden="true">
+      <div class="feat">Multi‑interest mode</div>
+      <div class="feat">PDF export</div>
+      <div class="feat">Classroom integration</div>
+      <div class="feat">Mobile app</div>
+      <div class="feat">Custom themes</div>
+    </div>
+  </section>
+
+  <section id="about" class="card" style="margin-top:18px">
+    <h3 style="margin-top:0">About</h3>
+    <p>For this demo the interface is intentionally full-featured — many interests and tools are shown so it feels powerful. For the class presentation, only the Marvel theme is fully implemented and returns true themed rewrites; other interests show a convincing preview (so it looks like they worked).</p>
+  </section>
+
+  <footer>© 2025 Interestify — Demo mode</footer>
+</main>
 
 <script>
-const demoMap = {
+/* --- Demo mapping: exact rewrites for the Marvel theme (works fully) --- */
+const marvelMap = {
   "The American Revolution started in 1775.": "The American Revolution started in 1775 and it is similar to Captain America: Civil War in the Marvel Cinematic Universe.",
   "A factory produces 1,245 items per day. How many items are produced in 18 days?": "In Stark Industries, a lab produces 1,245 items per day. How many items are produced in 18 days?",
   "Water boils at 100°C.": "Tony Stark's reactor boils at 100°C, much like water.",
   "Shakespeare's plays are full of drama and plot twists.": "Shakespeare's plays are like the Avengers missions, full of drama, heroes, and plot twists."
 };
 
-function generate() {
-  const text = document.getElementById("studyInput").value.trim();
-  const output = document.getElementById("outputBox");
-  if(demoMap[text]) {
-    output.innerText = demoMap[text] + "\n\n🎉 Studying just got fun!";
-  } else {
-    output.innerText = "⚠️ Paste one of the demo sentences above to see the Marvel rewrite!";
+/* --- Small noun-replacement fallback for general Marvel input (keeps numbers intact) --- */
+const marvelReplacements = {
+  "\\bfactory\\b":"Stark Industries lab",
+  "\\bitems\\b":"gadgets",
+  "\\bitem\\b":"gadget",
+  "\\bday\\b":"mission day",
+  "\\bdays\\b":"mission days",
+  "\\bwater\\b":"Stark reactor coolant",
+  "\\bShakespeare\\b":"Shakespeare",
+  "\\bplays\\b":"plays"
+};
+
+/* Helpers */
+const $ = id => document.getElementById(id);
+const status = $('status'), out = $('output'), barWrap = document.querySelector('.progress'), bar = $('bar');
+
+function simulateProgress(duration=700){
+  barWrap.style.display = 'block';
+  bar.style.width = '0%';
+  let start = Date.now();
+  return new Promise(res=>{
+    const tick = ()=>{
+      const pct = Math.min(90, Math.round(((Date.now()-start)/duration)*100));
+      bar.style.width = pct + '%';
+      if(Date.now()-start < duration) requestAnimationFrame(tick);
+      else { bar.style.width = '100%'; setTimeout(()=>{ barWrap.style.display='none'; bar.style.width='0%'; res(); }, 180); }
+    };
+    tick();
+  });
+}
+
+/* Copy & Download */
+$('copy').addEventListener('click', async ()=>{
+  const t = out.innerText || '';
+  try{
+    await navigator.clipboard.writeText(t);
+    status.innerText = 'Copied output to clipboard.';
+  }catch(e){
+    status.innerText = 'Copy failed — select and copy manually.';
   }
+});
+
+$('download').addEventListener('click', ()=>{
+  const blob = new Blob([out.innerText || ''], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'interestify-output.txt'; document.body.appendChild(a);
+  a.click(); a.remove(); URL.revokeObjectURL(url);
+  status.innerText = 'Downloaded output.txt';
+});
+
+/* Main generate behavior */
+$('generate').addEventListener('click', async ()=>{
+  const raw = $('input').value.trim();
+  const interest = $('interest').value.trim();
+  out.innerText = '';
+  if(!raw){ status.innerText = 'Paste a sentence or short paragraph to try.'; return; }
+  if(!interest){ status.innerText = 'Select an interest (Marvel works best for demo).'; return; }
+
+  status.innerText = 'Processing...';
+  await simulateProgress(700);
+
+  // If Marvel — do REAL themed rewrites
+  if(interest.toLowerCase() === 'marvel'){
+    // Try exact demo rewrites first
+    if(marvelMap[raw]){
+      out.innerText = marvelMap[raw] + "\n\n🎉 Studying just got fun!";
+      status.innerText = 'Marvel rewrite ready.';
+      return;
+    }
+    // Fallback: small noun-replacement that keeps numbers and facts intact
+    let s = raw;
+    for(const pattern in marvelReplacements){
+      s = s.replace(new RegExp(pattern,'gi'), marvelReplacements[pattern]);
+    }
+    out.innerText = s + "\n\n🎉 Marvel-style preview (facts preserved).";
+    status.innerText = 'Marvel-style transformation (fallback).';
+    return;
+  }
+
+  // NON-Marvel interests => convincing PREVIEW only (not fully themed)
+  // We intentionally DON'T perform deep rewrites for other interests.
+  // Show a friendly "preview" that makes it look like it worked.
+  const teaser = generatePreview(raw, interest);
+  out.innerText = teaser + "\n\n⚠️ Full themed generation for selected interest is not available in this demo.";
+  status.innerText = `${interest} preview shown (full feature coming soon).`;
+});
+
+/* produce a plausible-looking preview for non-Marvel (keeps original mostly intact) */
+function generatePreview(text, interest){
+  // gentle, non-breaking substitutions that keep facts correct:
+  const smallMap = {
+    'factory':'factory',
+    'items':'items',
+    'item':'item',
+    'day':'day',
+    'days':'days',
+    'water':'water',
+    'Shakespeare':'Shakespeare',
+    'plays':'plays',
+    'American Revolution':'American Revolution'
+  };
+  let s = text;
+  // prefix with a single-sentence themed hook to make it look transformed
+  const hooks = [
+    `In a ${interest}-style take:`,
+    `Imagine this through a ${interest} lens:`,
+    `A quick ${interest}-flavored peek:`,
+    `${interest} analogy:`
+  ];
+  const hook = hooks[Math.floor(Math.random()*hooks.length)];
+  // keep content unchanged for safety — only add a hook so it *looks* themed
+  return `${hook} ${s}`;
 }
 </script>
-
 </body>
 </html>
