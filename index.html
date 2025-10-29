@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interestify — Make Studying Fun</title>
+<title>Interestify Demo — Marvel Edition</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
 body { background:#f9f9fb; color:#222; line-height:1.6; scroll-behavior:smooth; }
@@ -11,143 +11,73 @@ header { position:fixed; top:0; width:100%; display:flex; justify-content:space-
 .logo { font-size:1.6rem; font-weight:700; color:#0066ff; }
 nav a { margin:0 10px; text-decoration:none; color:#333; font-weight:500; transition:0.3s; font-size:0.9rem; }
 nav a:hover { color:#0066ff; }
-.hero { min-height:70vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(135deg,#0066ff,#00d4ff); color:white; text-align:center; padding:0 15px; }
+.hero { min-height:60vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(135deg,#0066ff,#00d4ff); color:white; text-align:center; padding:0 15px; }
 .hero h1 { font-size:2.4rem; margin-bottom:10px; }
 .hero p { max-width:600px; font-size:1rem; margin-bottom:20px; }
 .hero button { background:white; color:#0066ff; border:none; padding:12px 25px; border-radius:10px; font-size:1rem; cursor:pointer; transition:0.3s; font-weight:600; }
 .hero button:hover { background:#e2edff; }
 section { padding:100px 20px; max-width:900px; margin:auto; text-align:center; }
 section.alt { background:#eef3ff; border-radius:15px; margin:30px 0; }
-.steps { display:flex; justify-content:space-around; flex-wrap:wrap; margin-top:40px; }
-.step { background:white; padding:25px; border-radius:12px; width:260px; box-shadow:0 6px 15px rgba(0,0,0,0.08); transition:0.3s; margin:10px; }
-.step:hover { transform:translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,0.12); }
-textarea { width:100%; min-height:200px; margin:15px 0; padding:12px; font-size:1rem; border-radius:10px; border:1px solid #ccc; resize:vertical; }
-select { width:100%; padding:10px; margin:10px 0; font-size:1rem; border-radius:10px; border:1px solid #ccc; }
+textarea { width:100%; min-height:120px; margin:15px 0; padding:12px; font-size:1rem; border-radius:10px; border:1px solid #ccc; resize:vertical; }
 button.generate { margin-top:10px; padding:12px 20px; font-size:1rem; border-radius:10px; border:none; background:#0066ff; color:white; cursor:pointer; font-weight:600; width:100%; }
 button.generate:hover { background:#004dcc; }
-#outputBox { margin-top:20px; padding:20px; background:#fff; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.08); white-space:pre-wrap; min-height:150px; font-size:1rem; line-height:1.5; text-align:left; }
+#outputBox { margin-top:20px; padding:20px; background:#fff; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.08); white-space:pre-wrap; min-height:100px; font-size:1rem; line-height:1.5; text-align:left; }
 footer { background:#111; color:white; padding:20px; text-align:center; font-size:0.9rem; }
-@media(max-width:768px){ .steps { flex-direction:column; align-items:center; } header { padding:15px 15px; } textarea, select { width:100%; } }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">Interestify</div>
+  <div class="logo">Interestify Demo</div>
   <nav>
     <a href="#home">Home</a>
-    <a href="#how">How It Works</a>
     <a href="#try">Try It</a>
     <a href="#about">About</a>
   </nav>
 </header>
 
 <section id="home" class="hero">
-  <h1>Make Studying Fun!</h1>
-  <p>Paste your study guide from ANY subject and see it rewritten in your favorite interests — Roblox, Marvel, Disney, Anime, and more!</p>
+  <h1>Interestify Demo — Marvel Edition</h1>
+  <p>Paste one of the demo sentences below and see it magically rewritten in the Marvel Cinematic Universe style!</p>
   <button onclick="document.getElementById('try').scrollIntoView({behavior:'smooth'})">Try It Now</button>
 </section>
 
-<section id="how">
-  <h2>How It Works</h2>
-  <div class="steps">
-    <div class="step">
-      <h3>1️⃣ Paste</h3>
-      <p>Paste your study guide — math, science, history, English, whatever!</p>
-    </div>
-    <div class="step">
-      <h3>2️⃣ Select Interest</h3>
-      <p>Choose what you like — Roblox, Marvel, Disney, Anime, and more.</p>
-    </div>
-    <div class="step">
-      <h3>3️⃣ Generate</h3>
-      <p>Watch your material rewritten in the style of your interest while keeping the facts and numbers correct.</p>
-    </div>
-  </div>
-</section>
-
 <section id="try" class="alt">
-  <h2>🚀 Try It Now</h2>
-  <textarea id="studyInput" placeholder="Paste your study guide here..."></textarea>
-  <select id="interestSelect">
-    <option value="">Select Your Interest</option>
-    <option value="Roblox">Roblox</option>
-    <option value="Marvel">Marvel</option>
-    <option value="Disney">Disney</option>
-    <option value="Anime">Anime</option>
-  </select>
-  <button class="generate" onclick="generate()">Generate ✨</button>
+  <h2>🚀 Try It</h2>
+  <textarea id="studyInput" placeholder="Paste one of the demo sentences here..."></textarea>
+  <button class="generate" onclick="generate()">Generate Marvel Rewrite ✨</button>
   <div id="outputBox"></div>
+  <p style="margin-top:10px; font-size:0.9rem; color:#555;">Demo sentences you can try:<br>
+    1️⃣ The American Revolution started in 1775.<br>
+    2️⃣ A factory produces 1,245 items per day. How many items are produced in 18 days?<br>
+    3️⃣ Water boils at 100°C.<br>
+    4️⃣ Shakespeare's plays are full of drama and plot twists.
+  </p>
 </section>
 
 <section id="about">
-  <h2>About Interestify</h2>
-  <p>Interestify works for ALL subjects! It rewrites your study guides in a fun, interest-themed style while keeping numbers and facts correct — math, science, history, English, and more!</p>
+  <h2>About Interestify Demo</h2>
+  <p>This is a small Marvel-themed demo of Interestify. It rewrites boring sentences from history, math, science, and English into fun, Marvel-inspired versions. Perfect for showing how boring study guides can become engaging and exciting!</p>
 </section>
 
-<footer>© 2025 Interestify • Study Smarter, Funner!</footer>
+<footer>© 2025 Interestify Demo • Shark Tank Ready</footer>
 
 <script>
-// Map interest keywords to replacements
-const interestMap = {
-  Roblox: {
-    "factory": "Brainwrap factory",
-    "item": "coin",
-    "items": "coins",
-    "day": "in-game day",
-    "days": "in-game days",
-    "dollar": "Robux",
-    "dollars": "Robux"
-  },
-  Marvel: {
-    "factory": "Stark Industries lab",
-    "item": "gadget",
-    "items": "gadgets",
-    "day": "mission day",
-    "days": "mission days",
-    "dollar": "stark bucks",
-    "dollars": "stark bucks"
-  },
-  Disney: {
-    "factory": "Magic Kingdom workshop",
-    "item": "toy",
-    "items": "toys",
-    "day": "magic day",
-    "days": "magic days",
-    "dollar": "pixie coins",
-    "dollars": "pixie coins"
-  },
-  Anime: {
-    "factory": "anime studio",
-    "item": "scroll",
-    "items": "scrolls",
-    "day": "episode",
-    "days": "episodes",
-    "dollar": "yen",
-    "dollars": "yen"
-  }
+const demoMap = {
+  "The American Revolution started in 1775.": "The American Revolution started in 1775 and it is similar to Captain America: Civil War in the Marvel Cinematic Universe.",
+  "A factory produces 1,245 items per day. How many items are produced in 18 days?": "In Stark Industries, a lab produces 1,245 items per day. How many items are produced in 18 days?",
+  "Water boils at 100°C.": "Tony Stark's reactor boils at 100°C, much like water.",
+  "Shakespeare's plays are full of drama and plot twists.": "Shakespeare's plays are like the Avengers missions, full of drama, heroes, and plot twists."
 };
 
 function generate() {
   const text = document.getElementById("studyInput").value.trim();
-  const interest = document.getElementById("interestSelect").value;
   const output = document.getElementById("outputBox");
-  if(!text){ output.innerText = "⚠️ Paste your study guide first."; return;}
-  if(!interest){ output.innerText = "⚠️ Select your interest."; return;}
-
-  const map = interestMap[interest];
-  const sentences = text.split(/(?<=[.?!])\s+/);
-
-  const transformed = sentences.map(sentence=>{
-    let s = sentence;
-    for(const key in map){
-      const re = new RegExp(`\\b${key}\\b`, "gi");
-      s = s.replace(re, map[key]);
-    }
-    return s;
-  }).join("\n\n");
-
-  output.innerText = transformed + "\n\n🎉 Studying just got fun!";
+  if(demoMap[text]) {
+    output.innerText = demoMap[text] + "\n\n🎉 Studying just got fun!";
+  } else {
+    output.innerText = "⚠️ Paste one of the demo sentences above to see the Marvel rewrite!";
+  }
 }
 </script>
 
