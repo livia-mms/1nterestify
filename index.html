@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Interestify — Make Studying Fun</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
+body { background:#f9f9fb; color:#222; line-height:1.6; scroll-behavior:smooth; }
+header { position:fixed; top:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:15px 20px; background:rgba(255,255,255,0.95); box-shadow:0 2px 15px rgba(0,0,0,0.05); z-index:1000; }
+.logo { font-size:1.6rem; font-weight:700; color:#0066ff; }
+nav a { margin:0 10px; text-decoration:none; color:#333; font-weight:500; transition:0.3s; font-size:0.9rem; }
+nav a:hover { color:#0066ff; }
+.hero { min-height:70vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(135deg,#0066ff,#00d4ff); color:white; text-align:center; padding:0 15px; }
+.hero h1 { font-size:2.4rem; margin-bottom:10px; }
+.hero p { max-width:600px; font-size:1rem; margin-bottom:20px; }
+.hero button { background:white; color:#0066ff; border:none; padding:12px 25px; border-radius:10px; font-size:1rem; cursor:pointer; transition:0.3s; font-weight:600; }
+.hero button:hover { background:#e2edff; }
+section { padding:100px 20px; max-width:900px; margin:auto; text-align:center; }
+section.alt { background:#eef3ff; border-radius:15px; margin:30px 0; }
+.steps { display:flex; justify-content:space-around; flex-wrap:wrap; margin-top:40px; }
+.step { background:white; padding:25px; border-radius:12px; width:260px; box-shadow:0 6px 15px rgba(0,0,0,0.08); transition:0.3s; margin:10px; }
+.step:hover { transform:translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,0.12); }
+textarea { width:100%; min-height:200px; margin:15px 0; padding:12px; font-size:1rem; border-radius:10px; border:1px solid #ccc; resize:vertical; }
+select { width:100%; padding:10px; margin:10px 0; font-size:1rem; border-radius:10px; border:1px solid #ccc; }
+button.generate { margin-top:10px; padding:12px 20px; font-size:1rem; border-radius:10px; border:none; background:#0066ff; color:white; cursor:pointer; font-weight:600; width:100%; }
+button.generate:hover { background:#004dcc; }
+#outputBox { margin-top:20px; padding:20px; background:#fff; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.08); white-space:pre-wrap; min-height:150px; font-size:1rem; line-height:1.5; text-align:left; }
+footer { background:#111; color:white; padding:20px; text-align:center; font-size:0.9rem; }
+@media(max-width:768px){ .steps { flex-direction:column; align-items:center; } header { padding:15px 15px; } textarea, select { width:100%; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Interestify</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#how">How It Works</a>
+    <a href="#try">Try It</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<section id="home" class="hero">
+  <h1>Make Studying Fun!</h1>
+  <p>Paste your study material from ANY subject and see it transformed with your favorite interests — Marvel, Disney, anime, Roblox, and more!</p>
+  <button onclick="document.getElementById('try').scrollIntoView({behavior:'smooth'})">Try It Now</button>
+</section>
+
+<section id="how">
+  <h2>How It Works</h2>
+  <div class="steps">
+    <div class="step">
+      <h3>1️⃣ Paste</h3>
+      <p>Paste your study guide, no matter the subject — math, history, science, language, etc.</p>
+    </div>
+    <div class="step">
+      <h3>2️⃣ Select Interest</h3>
+      <p>Choose what you like — Marvel, Disney, anime, Roblox, K-pop, and more.</p>
+    </div>
+    <div class="step">
+      <h3>3️⃣ Generate</h3>
+      <p>See your material transformed with interest-themed examples while keeping all key facts correct.</p>
+    </div>
+  </div>
+</section>
+
+<section id="try" class="alt">
+  <h2>🚀 Try It Now</h2>
+  <textarea id="studyInput" placeholder="Paste your study guide here..."></textarea>
+  <select id="interestSelect">
+    <option value="">Select Your Interest</option>
+    <option value="Marvel">Marvel</option>
+    <option value="Disney">Disney</option>
+    <option value="Anime">Anime</option>
+    <option value="Roblox">Roblox</option>
+    <option value="DC">DC</option>
+    <option value="Star Wars">Star Wars</option>
+    <option value="Harry Potter">Harry Potter</option>
+    <option value="Minecraft">Minecraft</option>
+    <option value="K-pop">K-pop</option>
+  </select>
+  <button class="generate" onclick="generate()">Generate ✨</button>
+  <div id="outputBox"></div>
+</section>
+
+<section id="about">
+  <h2>About Interestify</h2>
+  <p>Interestify works for ALL subjects! It keeps your material accurate but adds fun, relatable examples to make any subject exciting — math, science, history, English, and more!</p>
+</section>
+
+<footer>© 2025 Interestify • Study Smarter, Funner!</footer>
+
+<script>
+function generate() {
+  const text = document.getElementById("studyInput").value.trim();
+  const interest = document.getElementById("interestSelect").value;
+  const output = document.getElementById("outputBox");
+  if (!text) { output.innerText = "⚠️ Paste your study guide first."; return; }
+  if (!interest) { output.innerText = "⚠️ Select your interest."; return; }
+
+  const sentences = text.split(/(?<=[.?!])\s+/);
+  const templates = [
+    `Imagine ${interest} exploring this: {sentence}`,
+    `Even ${interest} fans would find this interesting: {sentence}`,
+    `Think of ${interest} while studying: {sentence}`,
+    `In a ${interest}-themed world: {sentence}`,
+    `If ${interest} were teaching, they'd say: {sentence}`
+  ];
+
+  const transformed = sentences.map(sentence => {
+    if (!sentence) return "";
+    const chosen = templates[Math.floor(Math.random() * templates.length)];
+    return chosen.replace("{sentence}", sentence);
+  }).join("\n\n");
+
+  output.innerText = transformed + "\n\n🎉 Studying just got fun!";
+}
+</script>
+
+</body>
+</html>
